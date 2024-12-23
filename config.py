@@ -11,7 +11,7 @@ class Config:
     # Conexión a la base de datos MySQL usando PyMySQL como driver
     # Formato: mysql+pymysql://usuario:contraseña@host/nombre_base_datos
 
-    # Llamar datos desde variables de entorno os.environ.get
+    # Llamar datos desde variables de entorno os.environ.get, eliminar datos personales luego de las pruebas
     userdb = os.environ.get('DB_USER', 'ecomycr')  # Nombre de usuario de la base de datos desde la variable de entorno.
     password_db = os.environ.get('DB_PASSWORD', 'zbyj8918')  # Contraseña de la base de datos desde la variable de entorno.
     db_name = os.environ.get('DB_NAME', 'ecomycr')  # Nombre de la base de datos desde la variable de entorno.
@@ -19,7 +19,10 @@ class Config:
 
     # URI de la base de datos con formato de conexión MySQL
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or f'mysql+pymysql://{userdb}:{password_db}@{db_host}/{db_name}'
-
+    POSTGRES_URI = os.getenv(
+        "POSTGRES_URI",
+        "postgresql://ecomycr:w9M5on5qUPZebxrac9JXMbnfVhE6TCSx@dpg-ctiv2abtq21c73dv4h00-a/ecomycr_ift4"
+    )
     # Configuraciones adicionales de seguridad
     PERMANENT_SESSION_LIFETIME = timedelta(minutes=60)  # Sesión expira en 1 hora.
     SESSION_PROTECTION = 'strong'  # Protección de sesión fuerte.
